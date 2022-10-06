@@ -4,21 +4,24 @@ fieldset {
     margin: 0;
     min-width: 0;
 }
+.formContainer{
+    width:30vw;
+    
+}
 #update-account-form {
     display: flex;
     justify-content: center;
 }
 .form-group {
-    width: 45%;
+    width: 75%;
 }
 .input-group input {
     outline: none;
-    background-color: #f5f8fa !important;
+    background-color: #c1c3c5 !important;
     border: 1px solid #f5f8fa;
-    color: #5E6278;
     display: block;
     width: 100%;
-    padding: 0.475rem 1rem;
+    padding: 0.75rem 1rem;
     font-size: 1rem;
     border-radius: 0.65rem;
     margin: 0.4rem 0 0.75rem;
@@ -36,13 +39,13 @@ fieldset {
     padding: calc(0.775rem + 1px) calc(1.5rem + 1px);
 }
 .action-group button[type="reset"] {
-    color: #7E8299;
-    background-color: #f5f8fa;
+    color: #d6d8e2;
+    background-color: #5E6278;
     border-radius: 0.65rem;
     margin-right: 0.75rem;
 }
-.action-group button[type="submit"] {
-    color: #ffffff;
-    background-color: #009ef7;
-    border-radius: 0.65rem;
-}
+    .action-group button[type="submit"] {
+        color: #ffffff;
+        background-color: #009ef7;
+        border-radius: 0.65rem;
+    }
