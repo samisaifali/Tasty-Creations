@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import GoogleLogin from "react-google-login";
 import { gapi } from "gapi-script";
 import "./loginForm.css";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const LoginForm = ({ error }) => {
   const [userName, setUserName] = useState("");
   const [userPassword, setUserPassword] = useState("");
-
+  const [authenticated, setAuthenticated] = useState(localStorage.getItem(localStorage.getItem("authenticated")|| false));
+  const navigate = useNavigate();
+ 
   useEffect(() => {
     function start() {
       gapi.client.init({
@@ -45,9 +47,13 @@ const LoginForm = ({ error }) => {
       )
       .then(function (response) {
         console.log(response.data);
+        setAuthenticated(true);
+        localStorage.setItem("authenticated", true);
+        navigate("/account/dashboard");
+        
       })
       .catch(function (error) {
-        console.log(error.response.data.errors);
+        console.log(error);
       });
   };
 
