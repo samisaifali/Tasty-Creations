@@ -38,9 +38,9 @@ app.post(
   }
 );
 
-app.post("/register", (req, res) => {});
+app.post("/register", (req, res) => { });
 
-app.post("/logout", (req, res) => {});
+app.post("/logout", (req, res) => { });
 
 app.use((req, res) => {
   res.status(404).send("Page Not Found");
