@@ -17,8 +17,6 @@ li{
     list-style: none;
 }
 .card{
-    padding-top: 10px;
-    padding-bottom: 10px;
     display: flex;
     padding-left: 150px;
     gap:50px;
@@ -34,7 +32,7 @@ li{
 img{
     width:250px;
     height:200px;
-    border: solid black 1px;
+    border: solid black 2px;
     border-radius: 0px;
 }
 

@@ -1,4 +1,4 @@
-import { useState ,useEffect} from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./editStyle.css";
@@ -13,17 +13,6 @@ const AccountEdit = () => {
     password: "",
     confirmPassword: "",
   });
-
-  const userid= localStorage.getItem('userid');
-  useEffect (()=>{
-    axios.get("http://localhost:3001/user/"+userid)
-    .then(res=>{
-      console.log(res.data);
-      setFields(res.data)
-    }).catch(err=>{
-      console.log(err);
-    })
-  },[] );
   const handleFieldChange = (event, field) =>
     setFields((fields) => ({
       ...fields,
@@ -33,12 +22,12 @@ const AccountEdit = () => {
     e.preventDefault();
     if (fields.password !== fields.confirmPassword)
       return alert("Password mismatch");
-
+    const id = localStorage.getItem("user_id");
     await axios.put(
-      `${process.env.REACT_APP_API_HOST}/account/edit/${userid}`,
+      `${process.env.REACT_APP_API_HOST}/account/edit/${id}`,
       fields
     );
-    alert("Updated successfully!");
+    alert("Account updated successfully!");
     navigate(`/account`);
   };
   const handleFormReset = () =>
@@ -50,7 +39,6 @@ const AccountEdit = () => {
 
   return (
     <>
-      <div className="page">
       <div className="formContainer">
         <h1
           id="page-title"
@@ -88,7 +76,7 @@ const AccountEdit = () => {
               />
             </div>
             <div className="input-group">
-              <label htmlFor="text">Gender</label>
+              <label htmlFor="text">gender</label>
               <input
                 type="text"
                 id="gender"
@@ -128,7 +116,6 @@ const AccountEdit = () => {
       </div>
       <div className="profileImg">
         <UserProfilePhoto />
-      </div>
       </div>
     </>
   );
