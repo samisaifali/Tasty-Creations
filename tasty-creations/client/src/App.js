@@ -1,41 +1,38 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import RegisterForm from "./components/RegisterForm";
+import ViewOne from "./components/SingleFood/SingleFood";
 import "./index.css";
-import LoginForm from "./components/account/login/loginForm";
-import RegisterForm from "./components/registerForm";
-import AccountEdit from "./components/account/edit/edit";
-import AccountDetails from "./components/account/details/details";
-import ViewOne from "./components/singleFood/singleFood";
-
-import Home from "./components/home/home";
-
-import Navbar from "./components/layout/navbar";
+import AccountDetails from "./pages/Account/Details/Details";
+import AccountEdit from "./pages/Account/Edit/Edit";
+import LoginForm from "./pages/Account/Login/LoginForm";
+import ExternalSourceList from "./pages/ExternalSource/List";
+import ExternalSourceCreate from "./pages/ExternalSource/Create";
+import Home from "./pages/Home/home";
+import Navbar from "./pages/layout/Navbar";
 
 function App() {
   return (
     <div>
       <div className="App">
-
-      <Navbar />
-
-
+        <Navbar />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<LoginForm />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/register" element={<RegisterForm />} />
-
-            <Route path="/home" element={<Home />}></Route>
-            <Route path="/view/:id" element={<ViewOne />}></Route>
-
-            <Route path="/account" element={<AccountDetails />}></Route>
-            <Route path="/account/edit" element={<AccountEdit />}></Route>
+            <Route path="/home" element={<Home />} />
+            <Route path="/view/:id" element={<ViewOne />} />
+            <Route path="/account" element={<AccountDetails />} />
+            <Route path="/account/edit" element={<AccountEdit />} />
+            <Route path="/external-source" element={<ExternalSourceList />} />
+            <Route
+              path="/external-source/new"
+              element={<ExternalSourceCreate />}
+            />
           </Routes>
         </BrowserRouter>
-
       </div>
-
     </div>
-
   );
 }
 

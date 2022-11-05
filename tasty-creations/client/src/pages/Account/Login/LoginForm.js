@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
-import GoogleLogin from "react-google-login";
-import { gapi } from "gapi-script";
-import "./loginForm.css";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { gapi } from "gapi-script";
+import React, { useEffect, useState } from "react";
+import GoogleLogin from "react-google-login";
+import { useNavigate } from "react-router-dom";
+import "./LoginForm.css";
 
 const LoginForm = ({ error }) => {
   const [userName, setUserName] = useState("");
@@ -23,14 +22,21 @@ const LoginForm = ({ error }) => {
     gapi.load("client: auth2", start);
   });
 
+  // const [popupStyle, showPopup] = useState("hide");
+  // const popup = () => {
+  //   showPopup("login-popup");
+  //   setTimeout(() => showPopup("hide"), 3000);
+  // };
+
+  // handle input from user
 
   const submitHandler = (e) => {
     e.preventDefault();
     axios
       .post(
-        "http://localhost:3001/login",
+        "/login",
         {
-          email: userName,
+          username: userName,
           password: userPassword,
         },
         {
@@ -39,16 +45,15 @@ const LoginForm = ({ error }) => {
           },
         }
       )
-
-      .then((response) =>{
-        console.log("Res: ", response.data.user._id);
-        localStorage.setItem('userid', response.data.user._id);
-
-        onSuccess();
+      .then(function (response) {
+        console.log("Res: ", response.data);
       })
       .catch(function (error) {
-        alert(error.response.data.message);
-        console.log(error);
+        console.log(error.response.data.errors);
+        setErr(() => error.response.data.errors);
+        setTimeout(() => {
+          setErr(() => []);
+        }, 3000);
       });
   };
 
@@ -80,7 +85,7 @@ const LoginForm = ({ error }) => {
             className="loginInput"
             type="email"
             required
-            placeholder="Enter your email"
+            placeholder="Enter username"
             name="username"
             id="username"
             onChange={(e) => setUserName(e.target.value)}
@@ -133,106 +138,3 @@ const LoginForm = ({ error }) => {
 };
 
 export default LoginForm;
-
-
-// import React, { useState } from "react";
-// import GoogleLogin from "react-google-login";
-// import {useNavigate} from 'react-router-dom'
-// import  axios  from "axios";
-// import "./loginForm.css";
-
-
-// const LoginForm = ({ error }) => {
-//   const [fields, setFields] = useState({
-//     email: "",
-//     password: ""
-//   });
-
-//   const navigate = useNavigate();
-//   const handleFormSubmit = async (e) => {
-//     e.preventDefault();
-//     localStorage.clear();
-//     if (fields.email!=="" && fields.password !== ""){
-//           await axios.post(
-//       `${process.env.REACT_APP_API_HOST}/login`,
-//       fields
-//     ).then(res=>{
-//       if(res.data._id){
-//         localStorage.setItem('userid', res.data._id);
-//         alert("Logged in successfully!"); 
-//         navigate(`/home`);
-//       }
-//       else{
-//         alert('Incorrect credentials')
-//       }
-//     });
-   
-    
-//     }
-//     else{
-//       alert("All fields are required")
-//     }
-
-//   };
-
-
-
-//   const handleFieldChange = (event, field) =>
-//   setFields((fields) => ({
-//   ...fields,
-//   [field]: event.target.value,
-//   }));
-
-//   const onSuccess = (e) => {
-//     alert("Signed in successfully!");
-//     console.log(e);
-//   };
-
-//   return (
-//     <div className="page">
-//           <form onSubmit={handleFormSubmit} method="POST">
-//       <div className="login">
-//         <h1>Login</h1>
-//         {error !== "" ? <div className="error">{error}</div> : ""}
-//         <input className="loginInput"
-//           type="email"
-//           placeholder="Enter username"
-//           name="username"
-//           id="username"
-//           onChange={(e) =>handleFieldChange(e, 'email')}
-//         />
-//         <input className="loginInput"
-//           type="password"
-//           placeholder="Enter password"
-//           name="password"
-//           id="password"
-//           onChange={(e) => handleFieldChange(e, 'password')}
-
-//         />
-//         <input className="login-button" type="submit" value="LOGIN" />
-//         <p className="text">Login Using</p>
-//         <div className="alter-login">
-//           <div className="google">
-//             <GoogleLogin
-//               classname="google-login"
-//               clientId="408408598288-o22i4f2u60ggm1pf5aa9is1bctpi75ic.apps.googleusercontent.com"
-//               buttonText=""
-//               onSuccess={onSuccess}
-//               cookiePolicy={"single_host_origin"}
-//               isSignedIn={false}
-//               icon={false}
-//               theme="dark"
-//             />
-//           </div>
-//         </div>
-//         <div>
-//           <a href="/register">Don't have an account?</a>
-//         </div>
-
-//       </div>
-//     </form>
-//     </div>
-//   );
-// };
-
-// export default LoginForm;
