@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import GoogleLogin from "react-google-login";
-import "./RegisterForm.css";
+import "./registerForm.css";
 
 const RegisterForm = () => {
-  useEffect(() => {
-    // TODO
+  const navigate = useNavigate();
+  const [fields, setFields] = useState({
+    fullName: "",
+    email: "",
+    gender: "",
+    password: "",
+    confirmPassword: "",
   });
 
-<<<<<<< HEAD
-=======
   const handleFieldChange = (event, field) =>
     setFields((fields) => ({
       ...fields,
@@ -24,17 +29,13 @@ const RegisterForm = () => {
     navigate(`/login`);
   };
   
->>>>>>> 168ff7026f2095554e6515cda3d57b72076b8e67
   const [popupStyle, showPopup] = useState("hide");
-  const handleSubmit = () => {
+  const popup = () => {
     showPopup("register-popup");
     setTimeout(() => showPopup("hide"), 3000);
   };
 
   const onSuccess = (e) => {
-<<<<<<< HEAD
-    alert("Account created successfully!");
-=======
     alert("Thank you for registering, please login to continue");
     // call api to send email
     axios
@@ -62,7 +63,6 @@ const RegisterForm = () => {
         }, 3000);
       });
     navigate(`/`);
->>>>>>> 168ff7026f2095554e6515cda3d57b72076b8e67
     console.log(e);
   };
 
@@ -73,53 +73,8 @@ const RegisterForm = () => {
 
   return (
     <div className="page">
-      <form onSubmit={handleSubmit} className="register">
+      <div className="register">
         <h1>Register</h1>
-<<<<<<< HEAD
-        {/* <input type="text" placeholder="First name" />
-      <input type="text" placeholder="Last name" />
-      <input type="email" placeholder="Email address" />
-      <input type="password" placeholder="Password" />
-      <input type="password" placeholder="Confirm password" />
-      <div className="register-button" onClick={popup}>
-        {" "}
-        Register
-      </div> */}
-        <input
-          type="text"
-          placeholder="First name"
-          pattern="^[A-Za-z]{2,20}$"
-          required
-        />
-        <input
-          type="text"
-          placeholder="Last name"
-          pattern="^[A-Za-z]{2,20}$"
-          required
-        />
-        <input type="email" placeholder="Email Address" required />
-        <input
-          type="password"
-          placeholder="Password"
-          maxLength="12"
-          minLength="8"
-          required
-        />
-        <input
-          type="password"
-          placeholder="Confirm password"
-          maxLength="12"
-          minLength="8"
-          required
-        />
-        <button
-          //   style={{ border: "none" }}
-          className="register-button"
-          type="submit"
-        >
-          Register
-        </button>
-=======
         <form className="registrationForm" onSubmit={handleFormSubmit}>
           <input
             className="registerInput"
@@ -160,10 +115,9 @@ const RegisterForm = () => {
             Register
           </button>
         </form>
->>>>>>> 168ff7026f2095554e6515cda3d57b72076b8e67
         <p classname="text">Register Using</p>
         <div className="alter-register">
-          <div className="alter-register">
+          <div className="google">
             <GoogleLogin
               id="google-register"
               classname="alter-register"
@@ -173,7 +127,7 @@ const RegisterForm = () => {
               onFailure={onFailure}
               cookiePolicy={"single_host_origin"}
               isSignedIn={false} //we can change the value here to "true", which will keep the sign in status
-              icon={true}
+              icon={false}
               theme="dark"
             />
           </div>
@@ -185,7 +139,7 @@ const RegisterForm = () => {
           <h3>Registration Failed</h3>
           <p>All fields are required.</p>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

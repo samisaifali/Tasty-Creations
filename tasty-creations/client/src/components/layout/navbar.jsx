@@ -40,8 +40,12 @@ const NavBar = () => {
           <li>
             <a href="/home">Home</a>
           </li>
-          <li>External Source</li>
-          <li><a href="/about">About</a></li>
+          <li>
+            <a href="/external-source">External Source</a>
+          </li>
+          <li>
+            <a href="/about">About</a>
+          </li>
           <li>
             <a href="/chat">Chat</a>
           </li>

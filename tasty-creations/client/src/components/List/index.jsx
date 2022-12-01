@@ -9,4 +9,4 @@ const List = ({ data, renderItem, keyExtractor, SeparatorComponent }) => {
   ));
 };
 
-export default List;
+export default React.memo(List);

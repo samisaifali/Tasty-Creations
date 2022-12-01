@@ -5,8 +5,6 @@ import { getExternalSourceById, updateExternalSource } from "../../../lib/api";
 import { classes } from "../../../utils/cssClass";
 import styles from "./index.module.css";
 
-
-
 const ExternalSourceUpdate = () => {
   const { id } = useParams();
   const [name, setName] = useState("");
@@ -31,7 +29,7 @@ const ExternalSourceUpdate = () => {
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   const handleUpdateButtonClick = async (e) => {
     e.preventDefault();
@@ -39,14 +37,13 @@ const ExternalSourceUpdate = () => {
     setLoading(true);
 
     try {
-      await updateExternalSource(+id,
-        {
-          name,
-          description,
-          image,
-          sampleRecipe,
-          website,
-        });
+      await updateExternalSource(+id, {
+        name,
+        description,
+        image,
+        sampleRecipe,
+        website,
+      });
 
       navigate("/external-source");
     } catch (error) {

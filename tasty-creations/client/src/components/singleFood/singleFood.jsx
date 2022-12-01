@@ -1,78 +1,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-<<<<<<< HEAD
-import "./SingleFood.css";
-=======
 import "./singleFood.css";
->>>>>>> 168ff7026f2095554e6515cda3d57b72076b8e67
 
 function ViewOne() {
   const [food, setFood] = useState({});
   const foodid = useParams();
-<<<<<<< HEAD
-=======
   const [rating, setRating] = useState(0);
->>>>>>> 168ff7026f2095554e6515cda3d57b72076b8e67
 
   useEffect(() => {
     axios
       .get(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${foodid.id}`)
       .then((response) => {
-<<<<<<< HEAD
-        setFood(response.data.meals[0]);
-      })
-      .catch((error) => console.log(error));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  return (
-    <>
-      <div className="overall-container">
-        <div className="left">
-          <div className="image">
-            <img src={food.strMealThumb} alt="" />
-          </div>
-
-          <div>
-            Instructions:
-            <div className="instructions">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio
-              inventore laborum, cum, vel dolorem culpa quia tempore laboriosam
-              assumenda obcaecati eum, dolorum autem eos voluptate libero odit
-              alias! Laudantium, in?
-            </div>
-          </div>
-        </div>
-        <div className="description">
-          <table border>
-            <tr>
-              <th>Author:</th>
-              <td></td>
-            </tr>
-            <tr>
-              <th>Recipe:</th>
-              <td></td>
-            </tr>
-            <tr>
-              <th>Category:</th>
-              <td></td>
-            </tr>
-            <tr>
-              <th>Keyword Text:</th>
-              <td></td>
-            </tr>
-            <tr>
-              <th>Last Update:</th>
-              <td></td>
-            </tr>
-            <tr>
-              <th>Rating:</th>
-              <td></td>
-            </tr>
-          </table>
-        </div>
-=======
         console.log(response.data.meals[0]);
         setFood(response.data.meals[0]);
       })
@@ -136,7 +75,6 @@ function ViewOne() {
             <b style={{ color: "black" }}>Instructions:</b>
             <div className="instructions">{food.strInstructions}</div>
           </div>
->>>>>>> 168ff7026f2095554e6515cda3d57b72076b8e67
       </div>
     </>
   );

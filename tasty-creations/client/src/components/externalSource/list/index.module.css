@@ -76,7 +76,7 @@
   margin-right: -16px;
 }
 
-.delete>button{
+.delete > button {
   position: absolute;
   right: 7px;
   top: 5px;
@@ -92,6 +92,12 @@
   line-height: 30px;
   text-align: center;
 }
-.listItem:hover .delete>button{
+
+.listItem:hover .delete > button {
   display: flex;
+}
+
+.inlineInfo > a:hover {
+  text-decoration: underline;
+  color: blue;
 }

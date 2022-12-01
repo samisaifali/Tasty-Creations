@@ -2,12 +2,15 @@ import React, { useCallback, useEffect, useState } from "react";
 import useDebounce from "../../../hooks/useDebounce";
 import useUpdateEffect from "../../../hooks/useUpdateEffect";
 import { useNavigate } from "react-router";
-import { getExternalSources, queryExternalSources, deleteExternalSource } from "../../../lib/api";
+import {
+  getExternalSources,
+  queryExternalSources,
+  deleteExternalSource,
+} from "../../../lib/api";
 import List from "../../list";
 import Loading from "../../loading";
 import SearchInput from "./components/search";
 import styles from "./index.module.css";
-
 
 const ExternalSourceList = () => {
   const navigate = useNavigate();
@@ -50,11 +53,14 @@ const ExternalSourceList = () => {
     } finally {
       fetchExternalSources();
     }
-  }
+  };
 
   const renderItem = useCallback(
     (data) => (
-      <div className={styles.listItem} onClick={() => handleExternalSourceClick(data.id)}>
+      <div
+        className={styles.listItem}
+        onClick={() => handleExternalSourceClick(data.id)}
+      >
         <div className={styles.leftSide}>
           <div className={styles.inlineInfo}>
             <span>Name:</span>
@@ -68,7 +74,9 @@ const ExternalSourceList = () => {
         <div className={styles.rightSide}>
           <div className={styles.inlineInfo}>
             <span>Website:</span>
-            <a href={data.website}>{data.website}</a>
+            <a href={data.website} onClick={(e) => e.stopPropagation()}>
+              {data.website}
+            </a>
           </div>
           <div className={styles.recipe}>
             <div className={styles.info}>
@@ -83,7 +91,7 @@ const ExternalSourceList = () => {
           </div>
         </div>
         <div className={styles.delete}>
-          <button onClick={e => handleDelete(e, data.id)}>&#10006;</button>
+          <button onClick={(e) => handleDelete(e, data.id)}>&#10006;</button>
         </div>
       </div>
     ),
