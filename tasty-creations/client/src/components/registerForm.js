@@ -7,6 +7,24 @@ const RegisterForm = () => {
     // TODO
   });
 
+<<<<<<< HEAD
+=======
+  const handleFieldChange = (event, field) =>
+    setFields((fields) => ({
+      ...fields,
+      [field]: event.target.value,
+    }));
+  const handleFormSubmit = async (e) => {
+    localStorage.clear();
+    e.preventDefault();
+    if (fields.password !== fields.confirmPassword)
+      return alert("Password mismatch");
+    await axios.post(`${process.env.REACT_APP_API_HOST}/register`, fields);
+    alert("check your email to confirm your account");
+    navigate(`/login`);
+  };
+  
+>>>>>>> 168ff7026f2095554e6515cda3d57b72076b8e67
   const [popupStyle, showPopup] = useState("hide");
   const handleSubmit = () => {
     showPopup("register-popup");
@@ -14,7 +32,37 @@ const RegisterForm = () => {
   };
 
   const onSuccess = (e) => {
+<<<<<<< HEAD
     alert("Account created successfully!");
+=======
+    alert("Thank you for registering, please login to continue");
+    // call api to send email
+    axios
+      .post(
+        "http://localhost:3001/email/send",
+        {
+          email: fields.email,
+          subject: "Thank you for registering",
+          content: `Thank you for registering ${fields.fullName}! Please login to continue`,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then(function (response) {
+        console.log("Res: ", response.data);
+      })
+      .catch(function (error) {
+        console.log(error.response.data.errors);
+        // setErr(() => error.response.data.errors);
+        setTimeout(() => {
+          // setErr(() => []);
+        }, 3000);
+      });
+    navigate(`/`);
+>>>>>>> 168ff7026f2095554e6515cda3d57b72076b8e67
     console.log(e);
   };
 
@@ -27,6 +75,7 @@ const RegisterForm = () => {
     <div className="page">
       <form onSubmit={handleSubmit} className="register">
         <h1>Register</h1>
+<<<<<<< HEAD
         {/* <input type="text" placeholder="First name" />
       <input type="text" placeholder="Last name" />
       <input type="email" placeholder="Email address" />
@@ -70,6 +119,48 @@ const RegisterForm = () => {
         >
           Register
         </button>
+=======
+        <form className="registrationForm" onSubmit={handleFormSubmit}>
+          <input
+            className="registerInput"
+            onChange={(event) => handleFieldChange(event, "fullName")}
+            type="text"
+            placeholder="Full name"
+          />
+          <input
+            className="registerInput"
+            onChange={(event) => handleFieldChange(event, "email")}
+            type="email"
+            placeholder="Email address"
+          />
+          <input
+            className="registerInput"
+            onChange={(event) => handleFieldChange(event, "gender")}
+            type="text"
+            placeholder="Gender"
+          />
+          <input
+            className="registerInput"
+            onChange={(event) => handleFieldChange(event, "password")}
+            type="password"
+            placeholder="Password"
+          />
+          <input
+            className="registerInput"
+            onChange={(event) => handleFieldChange(event, "confirmPassword")}
+            type="password"
+            placeholder="Confirm password"
+          />
+          <button
+            type="submit"
+            style={{ border: "none" }}
+            className="register-button"
+          >
+            {" "}
+            Register
+          </button>
+        </form>
+>>>>>>> 168ff7026f2095554e6515cda3d57b72076b8e67
         <p classname="text">Register Using</p>
         <div className="alter-register">
           <div className="alter-register">
