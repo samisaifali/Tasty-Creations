@@ -384,7 +384,6 @@ app.get("/review/:id/:userid", async (req, res) => {
     return res.status(404).json({ message: "review not found" });
   } else {
     let userReview = result.reviews.filter((review) => review.userId == userId);
-    console.log(userReview);
     if (userReview) {
       return res.status(200).json(userReview);
     } else {
@@ -407,7 +406,6 @@ app.put("/review/edit/:id", async (req, res) => {
   if (!(req.body.review && req.body.userId)) {
     res.status(400).json({ message: "missing review payload" });
   }
-  console.log(req.body.userId, req.body.review);
   const fetchedUser = await UserModel.findById(req.body.userId);
 
   if (fetchedUser) {

@@ -8,11 +8,9 @@ const ReviewDetails = (props) => {
   const [body, setBody] = useState(props.body);
 
   useEffect(() => {
-    console.log(userId);
     axios
       .get(`/user/${userId}`)
       .then((response) => {
-        console.log(response.data);
         setFullName(response.data.fullName);
       })
       .catch((err) => {
