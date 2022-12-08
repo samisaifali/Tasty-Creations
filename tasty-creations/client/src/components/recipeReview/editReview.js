@@ -8,6 +8,7 @@ const EditReview = (props) => {
   const [fetchedReview, setFetchedReview] = useState("");
   const [updatedReview, setUpdatedReview] = useState("");
   const userId = localStorage.getItem("userid");
+  const isAuthenticated = localStorage.getItem("userid") !== null;
 
   useEffect(() => {
     axios.get(`/review/${recipeId}/${userId}`).then((response) => {
@@ -24,6 +25,7 @@ const EditReview = (props) => {
         review: updatedReview,
       })
       .then((response) => {
+
         if (response.status === 200) window.location.reload();
       });
   };

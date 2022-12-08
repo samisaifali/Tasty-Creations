@@ -7,6 +7,7 @@ import "./reviews.css";
 import ReviewDetails from "./reviewDetails";
 import AddReview from "./addReview";
 import EditReview from "./editReview";
+
 import DeleteReview from "./deleteReview";
 
 const DisplayUserReview = (props) => {
@@ -53,6 +54,7 @@ const DisplayUserReview = (props) => {
           <DeleteReview recipeId={recipeId} />
           <button className="edit-review-btn" onClick={enableEditMode}>
             <FontAwesomeIcon icon={faEdit} /> Edit
+
           </button>
         </div>
       );
