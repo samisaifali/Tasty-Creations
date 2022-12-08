@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import "./displayReviews.css";
+import "./reviews.css";
 import ReviewDetails from "./reviewDetails";
 
 const DisplayReviews = (props) => {
@@ -12,7 +12,7 @@ const DisplayReviews = (props) => {
   useEffect(() => {
     try {
       axios
-        .get(`/review/${recipeId}`)
+        .get(`${process.env.REACT_APP_API_HOST}/review/${recipeId}`)
         .then((response) => {
           setReviews(
             response.data.reviews.filter((review) => review.userId !== userId)
@@ -20,7 +20,7 @@ const DisplayReviews = (props) => {
         })
         .catch((e) => {
           if (e.response.status === 404) {
-            axios.post("/review/", {
+            axios.post(`${process.env.REACT_APP_API_HOST}/review/`, {
               recipeId: recipeId,
             });
           }
