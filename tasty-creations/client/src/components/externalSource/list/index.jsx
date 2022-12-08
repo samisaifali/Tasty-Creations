@@ -1,12 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import useAuth from "../../../hooks/useAuth";
 import useDebounce from "../../../hooks/useDebounce";
 import useUpdateEffect from "../../../hooks/useUpdateEffect";
-import { useNavigate } from "react-router";
-import {
-  getExternalSources,
-  queryExternalSources,
-  deleteExternalSource,
-} from "../../../lib/api";
+import { deleteExternalSource, getExternalSources, queryExternalSources } from "../../../lib/api";
 import List from "../../list";
 import Loading from "../../loading";
 import SearchInput from "./components/search";
@@ -14,6 +11,7 @@ import styles from "./index.module.css";
 
 const ExternalSourceList = () => {
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth(true);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchValue, setSearchValue] = useState("");
@@ -26,8 +24,7 @@ const ExternalSourceList = () => {
   const fetchExternalSources = async (title = "") => {
     setLoading(true);
 
-    const fetcherFn = () =>
-      title ? queryExternalSources(title) : getExternalSources();
+    const fetcherFn = () => (title ? queryExternalSources(title) : getExternalSources());
 
     try {
       const { data } = await fetcherFn();
@@ -40,11 +37,14 @@ const ExternalSourceList = () => {
     }
   };
 
-  const handleExternalSourceClick = (id) => {
-    navigate(`/external-source/update/${id}`);
-  };
+  const handleExternalSourceClick = useCallback(
+    (id) => {
+      navigate(`/external-source/update/${id}`);
+    },
+    [navigate]
+  );
 
-  const handleDelete = async (e, id) => {
+  const handleDelete = useCallback(async (e, id) => {
     e.stopPropagation();
     try {
       await deleteExternalSource(id);
@@ -53,14 +53,11 @@ const ExternalSourceList = () => {
     } finally {
       fetchExternalSources();
     }
-  };
+  }, []);
 
   const renderItem = useCallback(
     (data) => (
-      <div
-        className={styles.listItem}
-        onClick={() => handleExternalSourceClick(data.id)}
-      >
+      <div className={styles.listItem} onClick={() => handleExternalSourceClick(data.id)}>
         <div className={styles.leftSide}>
           <div className={styles.inlineInfo}>
             <span>Name:</span>
@@ -83,11 +80,7 @@ const ExternalSourceList = () => {
               <span>Sample Recipe:</span>
               <span>{data.sampleRecipe}</span>
             </div>
-            <img
-              className={styles.recipeImage}
-              src={data.image}
-              alt={data.name}
-            />
+            <img className={styles.recipeImage} src={data.image} alt={data.name} />
           </div>
         </div>
         <div className={styles.delete}>
@@ -95,7 +88,7 @@ const ExternalSourceList = () => {
         </div>
       </div>
     ),
-    []
+    [handleDelete, handleExternalSourceClick]
   );
 
   const listKeyExtractor = useCallback((item) => item.name, []);
@@ -108,6 +101,8 @@ const ExternalSourceList = () => {
     fetchExternalSources();
   }, []);
 
+  if (!isAuthenticated) return null;
+
   return (
     <div className={styles.container}>
       {loading && <Loading />}
@@ -116,12 +111,7 @@ const ExternalSourceList = () => {
         Add another source
       </a>
       <div className={styles.listWrapper}>
-        <List
-          data={data}
-          keyExtractor={listKeyExtractor}
-          renderItem={renderItem}
-          SeparatorComponent={ListSeparator}
-        />
+        <List data={data} keyExtractor={listKeyExtractor} renderItem={renderItem} SeparatorComponent={ListSeparator} />
       </div>
     </div>
   );

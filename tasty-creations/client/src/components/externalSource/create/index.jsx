@@ -4,8 +4,10 @@ import Loading from "../../loading";
 import { addExternalSource } from "../../../lib/api";
 import { classes } from "../../../utils/cssClass";
 import styles from "./index.module.css";
+import useAuth from "../../../hooks/useAuth";
 
 const ExternalSourceCreate = () => {
+  const { isAuthenticated } = useAuth(true);
   const [name, setName] = useState("");
   const [website, setWebsite] = useState("");
   const [description, setDescription] = useState("");
@@ -44,25 +46,21 @@ const ExternalSourceCreate = () => {
     setImage(e.target.files[0]);
   };
 
+  if (!isAuthenticated) return null;
+
   return (
     <div className={styles.container}>
       {loading && <Loading />}
       <div className={styles.infoMessage}>
-        You want to check out websites of other amazing content creators? Add to
-        the information below to help share their knowledge...!
+        You want to check out websites of other amazing content creators? Add to the information below to help share
+        their knowledge...!
       </div>
       <form className={styles.form}>
         <div className={styles.inputRow}>
           <label htmlFor="name" className={styles.label}>
             Name
           </label>
-          <input
-            id="name"
-            type="text"
-            className={styles.input}
-            value={name}
-            onChange={handleInputChange(setName)}
-          />
+          <input id="name" type="text" className={styles.input} value={name} onChange={handleInputChange(setName)} />
         </div>
         <div className={styles.inputRow}>
           <label htmlFor="website" className={styles.label}>
@@ -104,12 +102,7 @@ const ExternalSourceCreate = () => {
           <label htmlFor="imageFile" className={styles.label}>
             Image
           </label>
-          <input
-            className={styles.input}
-            type="file"
-            accept="image/png, image/jpeg"
-            onChange={handleFileInputChange}
-          />
+          <input className={styles.input} type="file" accept="image/png, image/jpeg" onChange={handleFileInputChange} />
         </div>
         <button className={styles.button} onClick={handleCreateButtonClick}>
           Create new external source
