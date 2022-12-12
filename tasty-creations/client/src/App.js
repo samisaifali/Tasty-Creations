@@ -14,6 +14,7 @@ import About from "./components/about/about";
 import Home from "./components/home/home";
 import Navbar from "./components/layout/navbar";
 import ChatList from "./components/chat/chatlist";
+import { ExternalSourceCreate, ExternalSourceList, ExternalSourceUpdate } from "./components/externalSource";
 
 function App() {
   return (
@@ -29,18 +30,17 @@ function App() {
             <Route path="/createrecipe" element={<CreateRecipe />}></Route>
             <Route path="/home" element={<Home />}></Route>
             <Route path="/view/:id" element={<ViewOne />}></Route>
-            <Route path="/about" element={<About/>}></Route>
+            <Route path="/about" element={<About />}></Route>
             <Route path="/allrecipes" element={<AllRecipes />}></Route>
             <Route path="/account" element={<AccountDetails />}></Route>
             <Route path="/account/edit" element={<AccountEdit />}></Route>
             <Route path="/forgotPassword" element={<ForgotPassword />}></Route>
-            <Route
-              path="/reset-password/:id/:token"
-              element={<ResetPassword />}
-            ></Route>
-
+            <Route path="/reset-password/:id/:token" element={<ResetPassword />}></Route>
             <Route path="/chat/:id" element={<Chat />}></Route>
             <Route path="/chat" element={<ChatList />}></Route>
+            <Route path="/external-source" element={<ExternalSourceList />} />
+            <Route path="/external-source/update/:id" element={<ExternalSourceUpdate />} />
+            <Route path="/external-source/new" element={<ExternalSourceCreate />} />
           </Routes>
         </BrowserRouter>
       </div>
